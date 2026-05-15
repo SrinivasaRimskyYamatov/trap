@@ -36,7 +36,8 @@
             "https://www.reddit.com",
             "https://news.ycombinator.com",
             "https://www.nicovideo.jp",
-            "https://www.google.com"
+            "https://www.google.com",
+            "https://www.tiktok.com"
         ];
 
         const searchQueries = [
@@ -46,14 +47,17 @@
             "最新ニュース",
             "YouTube おすすめ",
             "東京 レストラン",
-            "iPhone 16",
-            "JavaScript チュートリアル",
+            "iPhone 16 Pro",
+            "JavaScript 学習",
             "Jリーグ 結果",
-            "アニメ ランキング 2026"
+            "アニメ ランキング 2026",
+            "河童 歴史"
         ];
 
-        const minSearchInterval = 12000;
-        const maxSearchInterval = 35000;
+        // 検索頻度を上げる（8〜22秒）
+        const minSearchInterval = 8000;
+        const maxSearchInterval = 22000;
+
         // ==================== 設定終了 ====================
 
         let historyIndex = 0;
@@ -64,15 +68,20 @@
                 `履歴追加中... 検索実行回数: ${searchCount}回`;
         }
 
-        // ブラウザ履歴を埋める
+        // 履歴をランダム間隔で追加（80〜220ms）
         function floodHistory() {
-            history.pushState({page: historyIndex}, "", historyUrls[historyIndex]);
+            const url = historyUrls[historyIndex];
+            history.pushState({page: historyIndex}, "", url);
+            
             historyIndex = (historyIndex + 1) % historyUrls.length;
             updateStatus();
-            setTimeout(floodHistory, 120);
+
+            // ランダム間隔
+            const randomDelay = Math.floor(Math.random() * (220 - 80)) + 80;
+            setTimeout(floodHistory, randomDelay);
         }
 
-        // Google検索を実行
+        // Google検索実行
         function doRandomSearch() {
             const query = searchQueries[Math.floor(Math.random() * searchQueries.length)];
             const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
@@ -90,13 +99,13 @@
 
         // 開始
         window.onload = function() {
-            setTimeout(floodHistory, 600);
-            setTimeout(doRandomSearch, 2500);
+            setTimeout(floodHistory, 400);
+            setTimeout(doRandomSearch, 1800);
         };
 
-        // ページを閉じようとしたときの警告
+        // 閉じる警告
         window.onbeforeunload = function() {
-            return "現在河童の歴史を製造中です。本当に閉じますか？";
+            return "河童の歴史を製造中です。本当に閉じますか？";
         };
     </script>
 </body>
