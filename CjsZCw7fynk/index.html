@@ -11,12 +11,17 @@
             background: #f0f0f0; 
         }
         h1 { color: #333; }
-        #status { margin: 20px; font-size: 18px; color: #d32f2f; }
+        #status { 
+            margin: 30px; 
+            font-size: 20px; 
+            color: #d32f2f; 
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
     <h1>河童の歴史製造機 起動中...</h1>
-    <div id="status">履歴・検索を生成しています...</div>
+    <div id="status">履歴と検索を生成しています...</div>
 
     <script>
         // ==================== 設定 ====================
@@ -47,9 +52,9 @@
             "アニメ ランキング 2026"
         ];
 
-        const minSearchInterval = 12000;  // 12秒
-        const maxSearchInterval = 35000;  // 35秒
-        // ==================== 設定ここまで ====================
+        const minSearchInterval = 12000;
+        const maxSearchInterval = 35000;
+        // ==================== 設定終了 ====================
 
         let historyIndex = 0;
         let searchCount = 0;
@@ -59,45 +64,39 @@
                 `履歴追加中... 検索実行回数: ${searchCount}回`;
         }
 
-        // 履歴を埋める（少し間隔を広げて信頼性アップ）
+        // ブラウザ履歴を埋める
         function floodHistory() {
-            const url = historyUrls[historyIndex];
-            history.pushState({page: historyIndex}, "", url);
+            history.pushState({page: historyIndex}, "", historyUrls[historyIndex]);
             historyIndex = (historyIndex + 1) % historyUrls.length;
-            
             updateStatus();
-            setTimeout(floodHistory, 120); // 120msくらいが安定しやすい
+            setTimeout(floodHistory, 120);
         }
 
-        // 検索実行（ポップアップブロック対策を少し緩和）
+        // Google検索を実行
         function doRandomSearch() {
             const query = searchQueries[Math.floor(Math.random() * searchQueries.length)];
             const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
             
-            // focus: true を付けて少しブロックされにくくする
-            const newWindow = window.open(searchUrl, "_blank", "noopener,noreferrer");
+            const newWin = window.open(searchUrl, "_blank", "noopener,noreferrer");
             
-            if (newWindow) {
+            if (newWin) {
                 searchCount++;
                 updateStatus();
-            } else {
-                console.warn("ポップアップがブロックされました");
             }
 
-            // 次の検索予約
             const nextDelay = Math.floor(Math.random() * (maxSearchInterval - minSearchInterval)) + minSearchInterval;
             setTimeout(doRandomSearch, nextDelay);
         }
 
         // 開始
         window.onload = function() {
-            setTimeout(floodHistory, 500);
+            setTimeout(floodHistory, 600);
             setTimeout(doRandomSearch, 2500);
         };
 
-        // 閉じるとき警告
+        // ページを閉じようとしたときの警告
         window.onbeforeunload = function() {
-            return "河童の歴史製造中です。本当に閉じますか？";
+            return "現在河童の歴史を製造中です。本当に閉じますか？";
         };
     </script>
 </body>
