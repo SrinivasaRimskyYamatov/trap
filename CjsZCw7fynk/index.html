@@ -16,12 +16,6 @@
             color: #333;
         }
 
-        #status {
-            margin-top: 20px;
-            font-size: 22px;
-            font-weight: bold;
-            color: #1976d2;
-        }
 
         #info {
             margin-top: 30px;
@@ -43,7 +37,6 @@
 
     <div class="box">
 
-        <div id="status">0 回検索</div>
 
         <div id="info">
             OS: 判定中...<br>
@@ -67,10 +60,8 @@
     ];
 
     let count = 0;
-
-    // 0.1秒〜2秒
-    const minInterval = 100;
-    const maxInterval = 300;
+    const minInterval = 10;
+    const maxInterval = 30;
 
     function updateStatus() {
         document.getElementById("status").textContent =
