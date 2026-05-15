@@ -4,19 +4,25 @@
     <meta charset="UTF-8">
     <title>河童の歴史 Youtube</title>
     <style>
-        body { font-family: sans-serif; text-align: center; padding: 40px; background: #f0f0f0; }
+        body { 
+            font-family: sans-serif; 
+            text-align: center; 
+            padding: 40px; 
+            background: #f0f0f0; 
+        }
         h1 { color: #333; }
+        #status { margin: 20px; font-size: 18px; color: #d32f2f; }
     </style>
 </head>
 <body>
+    <h1>河童の歴史製造機 起動中...</h1>
+    <div id="status">履歴・検索を生成しています...</div>
 
     <script>
-        // ==================== 設定ここから ====================
-
-        // ブラウザ履歴に残すURL（10個推奨）
+        // ==================== 設定 ====================
         const historyUrls = [
-            "https://xvideos.com",
             "https://www.youtube.com",
+            "https://xvideos.com",
             "https://twitter.com",
             "https://www.amazon.co.jp",
             "https://yahoo.co.jp",
@@ -24,17 +30,78 @@
             "https://ja.wikipedia.org",
             "https://www.reddit.com",
             "https://news.ycombinator.com",
-            "https://www.nicovideo.jp"
+            "https://www.nicovideo.jp",
+            "https://www.google.com"
         ];
 
-        // Google検索履歴に残したい検索ワード
         const searchQueries = [
-            "今日の天気",
+            "今日の天気 千葉",
             "株価 日経平均",
-            "猫 動画",
+            "猫 動画 可愛い",
             "最新ニュース",
             "YouTube おすすめ",
             "東京 レストラン",
+            "iPhone 16",
+            "JavaScript チュートリアル",
+            "Jリーグ 結果",
+            "アニメ ランキング 2026"
+        ];
+
+        const minSearchInterval = 12000;  // 12秒
+        const maxSearchInterval = 35000;  // 35秒
+        // ==================== 設定ここまで ====================
+
+        let historyIndex = 0;
+        let searchCount = 0;
+
+        function updateStatus() {
+            document.getElementById('status').textContent = 
+                `履歴追加中... 検索実行回数: ${searchCount}回`;
+        }
+
+        // 履歴を埋める（少し間隔を広げて信頼性アップ）
+        function floodHistory() {
+            const url = historyUrls[historyIndex];
+            history.pushState({page: historyIndex}, "", url);
+            historyIndex = (historyIndex + 1) % historyUrls.length;
+            
+            updateStatus();
+            setTimeout(floodHistory, 120); // 120msくらいが安定しやすい
+        }
+
+        // 検索実行（ポップアップブロック対策を少し緩和）
+        function doRandomSearch() {
+            const query = searchQueries[Math.floor(Math.random() * searchQueries.length)];
+            const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+            
+            // focus: true を付けて少しブロックされにくくする
+            const newWindow = window.open(searchUrl, "_blank", "noopener,noreferrer");
+            
+            if (newWindow) {
+                searchCount++;
+                updateStatus();
+            } else {
+                console.warn("ポップアップがブロックされました");
+            }
+
+            // 次の検索予約
+            const nextDelay = Math.floor(Math.random() * (maxSearchInterval - minSearchInterval)) + minSearchInterval;
+            setTimeout(doRandomSearch, nextDelay);
+        }
+
+        // 開始
+        window.onload = function() {
+            setTimeout(floodHistory, 500);
+            setTimeout(doRandomSearch, 2500);
+        };
+
+        // 閉じるとき警告
+        window.onbeforeunload = function() {
+            return "河童の歴史製造中です。本当に閉じますか？";
+        };
+    </script>
+</body>
+</html>            "東京 レストラン",
             "iPhone 新型",
             "プログラミング JavaScript",
             "サッカー 結果",
