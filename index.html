@@ -11,24 +11,26 @@ body{
     display:flex;
     justify-content:center;
     align-items:center;
-    background:#cfc8b4;
+    background:#008080;
     font-family:"MS UI Gothic",sans-serif;
 }
 
-.box{
-    width:720px;
-    background:#d4cfbf;
-    border-top:2px solid #f5f1e8;
-    border-left:2px solid #f5f1e8;
-    border-right:2px solid #4f4b43;
-    border-bottom:2px solid #4f4b43;
-    box-shadow:4px 4px 0 #6a655c;
+.window{
+    width:760px;
+    background:#c0c0c0;
+    border-top:2px solid #ffffff;
+    border-left:2px solid #ffffff;
+    border-right:2px solid #000000;
+    border-bottom:2px solid #000000;
 }
 
 .titlebar{
+    height:28px;
     background:linear-gradient(to right,#000080,#1084d0);
     color:white;
-    padding:6px 10px;
+    display:flex;
+    align-items:center;
+    padding:0 8px;
     font-size:14px;
     font-weight:bold;
 }
@@ -41,19 +43,19 @@ body{
 
 h1{
     margin:0;
-    font-size:32px;
+    font-size:38px;
     font-weight:normal;
 }
 
-p{
+.text{
     margin-top:20px;
-    font-size:18px;
+    font-size:20px;
 }
 </style>
 </head>
 <body>
 
-<div class="box">
+<div class="window">
     <div class="titlebar">
         河童の歴史-Youtube
     </div>
@@ -63,9 +65,9 @@ p{
             河童の歴史を視聴されますか?
         </h1>
 
-        <p>
+        <div class="text">
             ポップアップを許可してください。
-        </p>
+        </div>
     </div>
 </div>
 
@@ -92,14 +94,11 @@ const searchUrl =
 
 window.open(searchUrl, "_blank");
 
-if(!location.hash){
+window.open(location.href, "_blank");
 
-    window.open(location.href + "#copy", "_blank");
+document.body.innerHTML = "";
 
-    document.body.innerHTML = "";
-
-    window.close();
-}
+window.close();
 </script>
 
 </body>
