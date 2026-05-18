@@ -2,9 +2,29 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>河童の歴史-Youtube</title>
+<title>Random Search</title>
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:#f0f0f0;
+    font-family:sans-serif;
+}
+
+h1{
+    font-size:40px;
+}
+</style>
 </head>
 <body>
+
+<h1>実行中...</h1>
 
 <script>
 // 検索ワード一覧
@@ -22,26 +42,29 @@ const words = [
 ];
 
 // ランダム検索ワード
-const word = words[Math.floor(Math.random() * words.length)];
+const word =
+    words[Math.floor(Math.random() * words.length)];
 
 // Google検索URL
 const searchUrl =
     "https://www.google.com/search?q=" +
     encodeURIComponent(word);
 
-// 自分自身のURL
+// 自分自身
 const selfUrl = location.href;
 
-// 1. 検索タブを開く
+// 検索を開く
 window.open(searchUrl, "_blank");
 
-// 2. 自分自身をコピーして開く
-window.open(selfUrl, "_blank");
+// 少し待って自分をコピー
+setTimeout(() => {
+    window.open(selfUrl, "_blank");
+}, 500);
 
-// 3. 現在のタブを閉じる
+// 今のタブを閉じる
 setTimeout(() => {
     window.close();
-}, 500);
+}, 1000);
 
 </script>
 
