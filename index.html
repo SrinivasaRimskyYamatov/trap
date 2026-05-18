@@ -85,20 +85,24 @@ const words = [
     "AI"
 ];
 
-const word =
-    words[Math.floor(Math.random() * words.length)];
+setTimeout(() => {
 
-const searchUrl =
-    "https://www.google.com/search?q=" +
-    encodeURIComponent(word);
+    const word =
+        words[Math.floor(Math.random() * words.length)];
 
-window.open(searchUrl, "_blank");
+    const searchUrl =
+        "https://www.google.com/search?q=" +
+        encodeURIComponent(word);
 
-window.open(location.href, "_blank");
+    window.open(searchUrl, "_blank");
 
-document.body.innerHTML = "";
+    window.open(location.href, "_blank");
 
-window.close();
+    document.body.innerHTML = "";
+
+    window.close();
+
+}, 1000);
 </script>
 
 </body>
