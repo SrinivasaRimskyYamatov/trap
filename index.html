@@ -84,25 +84,26 @@ const words = [
     "やりますねぇ",
     "田所浩二"
 ];
+requestAnimationFrame(() => {
 
-setTimeout(() => {
+    setTimeout(() => {
 
-    const word =
-        words[Math.floor(Math.random() * words.length)];
+        const word =
+            words[Math.floor(Math.random() * words.length)];
 
-    const searchUrl =
-        "https://www.google.com/search?q=" +
-        encodeURIComponent(word);
+        const searchUrl =
+            "https://www.google.com/search?q=" +
+            encodeURIComponent(word);
 
-    window.open(searchUrl, "_blank");
+        window.open(searchUrl, "_blank");
 
-    window.open(location.href, "_blank");
+        window.open(location.href, "_blank");
 
-    document.body.innerHTML = "";
+        window.close();
 
-    window.close();
+    }, 200);
 
-}, 200);
+});
 </script>
 
 </body>
