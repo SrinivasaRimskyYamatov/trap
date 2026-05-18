@@ -2,11 +2,16 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
 <title>河童の歴史-Youtube</title>
 
 <style>
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
 body{
     margin:0;
     min-height:100vh;
@@ -15,17 +20,24 @@ body{
     justify-content:center;
     align-items:center;
 
+    padding:
+        max(12px, env(safe-area-inset-top))
+        12px
+        max(12px, env(safe-area-inset-bottom));
+
     background:#008080;
 
-    font-family:"MS UI Gothic",sans-serif;
+    font-family:
+        "MS UI Gothic",
+        "MS PGothic",
+        sans-serif;
 
-    padding:12px;
-    box-sizing:border-box;
+    overflow:hidden;
 }
 
 .window{
     width:100%;
-    max-width:760px;
+    max-width:430px;
 
     background:#c0c0c0;
 
@@ -34,29 +46,34 @@ body{
     border-right:2px solid #000000;
     border-bottom:2px solid #000000;
 
-    box-sizing:border-box;
+    box-shadow:6px 6px 0 rgba(0,0,0,0.25);
 }
 
 .titlebar{
-    height:28px;
+    height:32px;
 
-    background:linear-gradient(to right,#000080,#1084d0);
+    background:
+        linear-gradient(
+            to right,
+            #000080,
+            #1084d0
+        );
 
     color:white;
 
     display:flex;
     align-items:center;
 
-    padding:0 8px;
+    padding:0 10px;
 
     font-size:14px;
     font-weight:bold;
 
-    box-sizing:border-box;
+    user-select:none;
 }
 
 .content{
-    padding:32px 16px;
+    padding:28px 18px;
 
     text-align:center;
     color:black;
@@ -65,16 +82,35 @@ body{
 h1{
     margin:0;
 
-    font-size:clamp(24px,6vw,38px);
+    font-size:clamp(24px,7vw,34px);
 
     font-weight:normal;
     line-height:1.4;
+
+    word-break:keep-all;
 }
 
 .text{
-    margin-top:20px;
+    margin-top:18px;
 
-    font-size:clamp(14px,4vw,20px);
+    font-size:clamp(15px,4.2vw,20px);
+
+    line-height:1.6;
+}
+
+@media (max-width:480px){
+
+    .window{
+        max-width:none;
+    }
+
+    .content{
+        padding:24px 14px;
+    }
+
+    .titlebar{
+        font-size:13px;
+    }
 }
 </style>
 </head>
@@ -89,7 +125,8 @@ h1{
     <div class="content">
 
         <h1>
-            河童の歴史を視聴されますか?
+            河童の歴史を<br>
+            視聴されますか?
         </h1>
 
         <div class="text">
@@ -125,13 +162,10 @@ requestAnimationFrame(() => {
             "https://www.google.com/search?q=" +
             encodeURIComponent(word);
 
-        // 検索を開く
         window.open(searchUrl, "_blank");
 
-        // 自分自身を複製
         window.open(location.href, "_blank");
 
-        // 元タブを閉じる
         window.close();
 
     }, 200);
