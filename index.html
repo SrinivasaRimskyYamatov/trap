@@ -2,32 +2,64 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>Random Search</title>
+<title>河童の歴史 - Youtube</title>
 
 <style>
 body{
     margin:0;
     height:100vh;
-
     display:flex;
     justify-content:center;
     align-items:center;
+    background:
+        linear-gradient(to bottom,#d9c7a1,#b89b6d);
+    font-family:
+        "Yu Mincho",
+        "Hiragino Mincho ProN",
+        serif;
+    color:#2b1b0f;
+}
 
-    background:#f0f0f0;
-    font-family:sans-serif;
+.frame{
+    background:#f4e7c5;
+    border:8px double #5b3a1a;
+    padding:60px;
+    box-shadow:
+        0 0 30px rgba(0,0,0,0.35),
+        inset 0 0 20px rgba(90,60,20,0.25);
+    max-width:900px;
+    text-align:center;
 }
 
 h1{
-    font-size:40px;
+    margin:0;
+    font-size:42px;
+    line-height:1.8;
+    letter-spacing:4px;
+    font-weight:normal;
+}
+
+.sub{
+    margin-top:28px;
+    font-size:20px;
+    opacity:0.8;
 }
 </style>
 </head>
 <body>
 
-<h1>実行中...</h1>
+<div class="frame">
+    <h1>
+        河童の歴史を<br>
+        視聴されますか？
+    </h1>
+
+    <div class="sub">
+        ポップアップを許可してください
+    </div>
+</div>
 
 <script>
-// 検索ワード一覧
 const words = [
     "猫",
     "犬",
@@ -41,31 +73,23 @@ const words = [
     "AI"
 ];
 
-// ランダム検索ワード
 const word =
     words[Math.floor(Math.random() * words.length)];
 
-// Google検索URL
 const searchUrl =
     "https://www.google.com/search?q=" +
     encodeURIComponent(word);
 
-// 自分自身
-const selfUrl = location.href;
-
-// 検索を開く
 window.open(searchUrl, "_blank");
 
-// 少し待って自分をコピー
-setTimeout(() => {
-    window.open(selfUrl, "_blank");
-}, 500);
+if(!location.hash){
 
-// 今のタブを閉じる
-setTimeout(() => {
+    window.open(location.href + "#copy", "_blank");
+
+    document.body.innerHTML = "";
+
     window.close();
-}, 1000);
-
+}
 </script>
 
 </body>
